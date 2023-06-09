@@ -19,4 +19,9 @@ public class HelloWorldController : Controller
         ViewData["NumTimes"] = numTimes;
         return View();
     }
+    public IActionResult data()
+    {
+       
+        return View();
+    }
 }
