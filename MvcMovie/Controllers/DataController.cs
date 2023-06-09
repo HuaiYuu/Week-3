@@ -2,7 +2,7 @@
 
 namespace MvcMovie.Controllers
 {
-    public class Data : Controller
+    public class DataController : Controller
     {
         public IActionResult Index( string number)
         {
@@ -42,11 +42,10 @@ namespace MvcMovie.Controllers
 
          
         }
+        
         public IActionResult welcome()
         {
-
             return View();
-
         }
     }
 }

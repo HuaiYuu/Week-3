@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "輸入使用者名稱";
+}
+<head>   
+    <meta charset="UTF-8">    
+</head>
+<h1>輸入使用者名稱</h1>
+
+<form id="Form">
+    <div>
+        <input id="inputName" placeholder="請輸入使用者名稱" required>
+        <button type="submit">提交</button>
+    </div>
+</form>
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#Form').submit(function (event) {
+            event.preventDefault();
+
+            var name = $('#inputName').val();
+            if (name !== '') {
+                $.ajax({
+                    url: 'https://localhost:44362/trackName',
+                    data: {
+                        name: name
+                    },
+                    success: function (response) {
+                        window.location.href = '/trackName?name=' + name;
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            }
+        });
+    });
+</script>
+<style>
+
+    p h1 {
+        color: brown;
+        font-size: 20px;
+    }
+
+    main {
+        border: 1mm ridge rgba(211, 220, 50, .6);
+    }
+</style>
