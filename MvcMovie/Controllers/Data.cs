@@ -7,7 +7,6 @@ namespace MvcMovie.Controllers
         public IActionResult Index( string number)
         {
 
-
             if (int.TryParse(number, out int result))
             {
                 int answer = 0;
@@ -25,14 +24,7 @@ namespace MvcMovie.Controllers
                 else
                 {
                     return BadRequest("Out of Range");
-                }
-                
-
-
-
-               
-               
-
+                }                
             }
             else
             {
@@ -49,6 +41,12 @@ namespace MvcMovie.Controllers
             }
 
          
+        }
+        public IActionResult welcome()
+        {
+
+            return View();
+
         }
     }
 }

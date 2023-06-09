@@ -22,6 +22,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=data}/{action=index}");
+    pattern: "{controller=HelloWorld}/{action=index}");
 
 app.Run();
