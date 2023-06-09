@@ -1,174 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-  
-  </style>
+    <title>數字累加</title>
+    <meta charset="UTF-8">
+    <h1>數字累加</h1>
 </head>
 <body>
-  <header>
-    <div class="logo">
-      Website Title / Logo
-    </div>
-    <nav class="menu">
-      <ul>
-        <li><a href="#">item1</a></li>
-        <li><a href="#">item2</a></li>
-        <li><a href="#">item3</a></li>
-        <li><a href="#">item4</a></li>
-      </ul>
-    </nav>
-  </header>
+    <main id="result">
+        <p>Answer:</p>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
-  <main>
-    <div class="content-box">
-      <div class="box-top">
-        <p id="welcome-word">Welcome Message</p>
-      </div>     
+    <div>
+        <input  id="inputNumber" placeholder="輸入數字">
+        <button id="submitButton">計算</button>
     </div>
 
-    <p class="section-title">Section Title</p>
-    
-      <div class="section">        
-        <div class="box1">box1</div>
-        <div class="box1">box2</div>       
-        <div class="box2">box3</div>
-        <div class="box2">box4</div>        
-      </div>
-      <div class="btn">
-        <button id="btn">call to action</button>
-      </div>
-      <div class="section" id="section1" style="display: none">        
-        <div class="box1">box1</div>
-        <div class="box1">box2</div>       
-        <div class="box2">box3</div>
-        <div class="box2">box4</div>        
-      </div>
-      
-  </main>
 </body>
 </html>
 
 <script>
-  const welcomeWordElement = document.getElementById('welcome-word');
-  welcomeWordElement.addEventListener('click', function() 
-  {
-  welcomeWordElement.textContent = 'Have a Good Time!';
-  });
-
-
-  const btnElement = document.getElementById('btn');
-  btnElement.addEventListener('click', showSection);
-  
-  function showSection()
-  {
-  const section1 = document.getElementById('section1');
-  section1.removeAttribute('style');
-  }
+    $(document).ready(function () {
+        $('#submitButton').click(function () {
+            var number = $('#inputNumber').val();
+            if (number !== '') {
+                $.ajax({
+                    url: 'https://localhost:44362/data',
+                    data: {
+                        number: number
+                    },
+                    success: function (response) {
+                        $('#result').html('<p> Answer:' + response + '</p>');
+                    },
+                    error: function (xhr, status, error) {
+                        $('#result').html('<p>超出範圍</p>');
+                        console.log(error);
+                    }
+                });
+            }
+        });
+    });
 </script>
 
 <style>
 
-  .btn{
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-  }
-  #btn{
-    width: 100px;
-    height: 30px;
-  }
-  .section-title{
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
+    p {
+        color: brown;
+        font-size: 20px;
+    }
 
-  }
-  .box1{
-    margin-bottom: 10px;
-    margin-top: 10px;
-    text-align: center;
-  }
-  .box2{
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  body {
-    margin: 0;
-    padding: 0;
-  }
-
-  .box-top {
-    height: 200px;
-    background-color: skyblue;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #welcome-word {
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-  }
-
-  header {
-    background-color: gray;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 0;
-    width: 100%;
-  }
-
-  .logo {
-    text-align: left;
-    margin-left:30px;
-    height:50px;
-    align-items: center;    
-    display: flex;
-  }
-
-  .menu {
-    text-align: right;
-    margin-right:30px;
-  }
-
-  .menu ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .menu li {
-    display: inline-block;
-    margin-left: 40px;
-  }
-  
-  .content-box {
-    width: 100%;
-    height: 200px;
-  }
-
-  
-  .section{     
-    display: flex;
-    flex-wrap: wrap; 
-    height: 200px;     
-    justify-content: space-between;         
-    width: 70%;
-    height: 300px;
-    margin: auto;    
-  }
-  
-  
-
-  .section > div {
-    width: 48%;
-    background-color: grey;      
-  }
-
-  @media (max-width: 1200px) 
-  {
-
-  }
+    main {
+        border: 4mm ridge rgba(211, 220, 50, .6);
+    }
+</style>
