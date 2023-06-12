@@ -7,14 +7,8 @@ namespace MvcMovie.Controllers
         public IActionResult Index()
         {
 
-           
-                
                 string username = HttpContext.Request.Cookies["username"];
-
                 ViewBag.name = username;
-
-
-
 
             return View();
         }

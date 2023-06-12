@@ -6,3 +6,56 @@
 <title>@ViewData["Title"] - Show my name</title>
 
 <h1>Welcome My Server @name</h1>
+
+
+<form id="Form">
+    <div>
+        <input id="inputName" placeholder="請輸入使用者名稱" required>
+        <button type="submit">提交</button>
+    </div>
+</form>
+
+<button id="del" type="submit">刪除名稱</button>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script>
+
+    
+
+    var currentHost = window.location.protocol + '//' + window.location.host;
+    var dataUrl = currentHost + '/trackName?name=';
+    console.log(dataUrl);
+
+
+    $(document).ready(function () {
+        $('#Form').submit(function (event) {
+            event.preventDefault();
+
+            var name = $('#inputName').val();
+            if (name !== '') {
+                $.ajax({
+                    url: dataUrl+name,
+                    data: {
+                        name: name
+                    },
+                    success: function (response) {
+                        window.location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            }
+        });
+    });
+
+
+    $('#del').click(function (event) {
+        event.preventDefault();
+        clearUsernameCookie();
+    });
+
+    function clearUsernameCookie() {
+        document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+        window.location.reload();
+    }
+</script>

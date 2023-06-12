@@ -20,12 +20,21 @@
 </html>
 
 <script>
+
+
+  
+
+    var currentHost = window.location.protocol + '//' + window.location.host;
+    var dataUrl = currentHost + '/data?number=';
+    console.log(dataUrl);
+
+
     $(document).ready(function () {
         $('#submitButton').click(function () {
             var number = $('#inputNumber').val();
             if (number !== '') {
                 $.ajax({
-                    url: 'https://localhost:44362/data',
+                    url: dataUrl + number,
                     data: {
                         number: number
                     },
