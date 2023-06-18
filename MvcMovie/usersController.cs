@@ -36,7 +36,7 @@ namespace MvcMovie
 
             return _context.user != null ?
                         View(await _context.user.ToListAsync()) :
-                        Problem("Entity set 'MvcMovieContext.user'  is null.");
+                        Problem("Entity set 'MvcMovieContext.user'  is null.");    
         }
 
         // GET: users/Details/5
