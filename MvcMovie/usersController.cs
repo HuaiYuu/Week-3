@@ -88,18 +88,23 @@ namespace MvcMovie
                 }
                 catch (Exception ex) 
                 {
-                    return BadRequest(ex.Message);
+                    TempData["Status"] =ex.Message;
+                    return RedirectToAction(nameof(home));
                 }
-               
-                return RedirectToAction(nameof(Index));
+
+
+                TempData["Status"] = $"hello,{user.email}";
+                return RedirectToAction(nameof(member));
             }
-            return View(user);
+            else
+            {
+                return RedirectToAction(nameof(home));
+            }
+            
         }
 
         public async Task<IActionResult> Login([Bind("id,email,password")] user user)
         {
-
-
 
             var info = _context.user.FirstOrDefault(u => u.email == user.email);
 
@@ -110,13 +115,15 @@ namespace MvcMovie
             }
             if(info.email == user.email && info.password == user.password)
             {
-                    TempData["Status"] = $"Welcome, {info.email}!";
+                TempData["Status"] = $"Welcome, {info.email}!";
                 return RedirectToAction(nameof(member));
 
             }    
-           
-            return RedirectToAction(nameof(home));
-
+            else
+            {
+                TempData["Status"] = $"帳號或密碼錯誤!";
+                return RedirectToAction(nameof(home));
+            }           
         }
 
         // GET: users/Edit/5
