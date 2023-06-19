@@ -13,12 +13,10 @@ namespace MvcMovie
     public class usersController : Controller
     {
         private readonly MvcMovieContext _context;
-
         public usersController(MvcMovieContext context)
         {
             _context = context;
         }
-
         // GET: users
         public async Task<IActionResult> Index()
         {
@@ -26,19 +24,16 @@ namespace MvcMovie
                           View(await _context.user.ToListAsync()) :
                           Problem("Entity set 'MvcMovieContext.user'  is null.");
         }
-
         public async Task<IActionResult> member()
         {
             if (TempData.ContainsKey("Status"))
             {
                 ViewBag.Status = TempData["Status"];
             }
-
             return _context.user != null ?
                         View(await _context.user.ToListAsync()) :
                         Problem("Entity set 'MvcMovieContext.user'  is null.");    
         }
-
         // GET: users/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -71,7 +66,6 @@ namespace MvcMovie
             return View();
         }
 
-      
         // POST: users/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -79,6 +73,17 @@ namespace MvcMovie
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,email,password")] user user)
         {
+
+            var info = _context.user.FirstOrDefault(u => u.email == user.email);
+            if (info != null)
+            {
+                TempData["Status"] = $"e-mail已註冊!";
+                return RedirectToAction(nameof(home));
+            }
+
+
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(user);
@@ -91,23 +96,18 @@ namespace MvcMovie
                     TempData["Status"] =ex.Message;
                     return RedirectToAction(nameof(home));
                 }
-
-
                 TempData["Status"] = $"hello,{user.email}";
                 return RedirectToAction(nameof(member));
             }
             else
             {
                 return RedirectToAction(nameof(home));
-            }
-            
+            }            
         }
 
         public async Task<IActionResult> Login([Bind("id,email,password")] user user)
         {
-
             var info = _context.user.FirstOrDefault(u => u.email == user.email);
-
             if (info == null)
             {
                 TempData["Status"] = $"帳號或密碼錯誤!";
@@ -117,7 +117,6 @@ namespace MvcMovie
             {
                 TempData["Status"] = $"Welcome, {info.email}!";
                 return RedirectToAction(nameof(member));
-
             }    
             else
             {
